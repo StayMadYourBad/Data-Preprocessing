@@ -11,7 +11,7 @@ from sklearn.compose import ColumnTransformer
 from sklearn.preprocessing import OneHotEncoder
 from sklearn.preprocessing import  LabelEncoder
 from sklearn.model_selection import train_test_split
-
+from sklearn.preprocessing import StandardScaler
 
 # Importing Dataset
 
@@ -49,9 +49,16 @@ y = le.fit_transform(y)
 # ---------------------------------------------------------------------------- #
 #           Splitting the dataset into the Training set and Test set           #
 # ---------------------------------------------------------------------------- #
-print("-----------------------------")
+
 X_train, X_test, y_train, y_test = train_test_split(X, y, train_size=0.8, test_size=0.2, random_state = 1)
-print(X_train)
-print(X_test)
-print(y_train)
-print(y_test)
+
+
+# ---------------------------------------------------------------------------- #
+#                               Feature Scalling                               #
+# ---------------------------------------------------------------------------- #
+
+sc = StandardScaler()
+X_train[:, 3:] = sc.fit_transform(X_train[:, 3:]) #Fit will get mean and standard deviation
+#transform will apply the formula and apply the mean/standard deivation
+
+X_test[:, 3:] = sc.transform(X_test[:, 3:])
